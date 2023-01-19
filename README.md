@@ -18,6 +18,10 @@ Tested on:
 * mongodb 4.0.4
 
 
+## Audyt
+
+Audyt bezpieczeństwa został zrealizowany zgodnie ze standardem OWASP Top 10 oraz pod kątem ogólnego bezpieczeństwa. Badana aplikacja wykazała wiele podatności na ataki, więc przed udostępnieniem jej szerzej nalezałoby ją odpowiedno zabezpieczyć. Aplikacja ma bardzo niski poziom zabezpieczeń, skupiający się głównie na szyfrowaniu haseł uzytkownika. Dane uzytkownika nie sa w zadnym stopniu chronione.
+
 ## TESTY ZABEZPIECZEŃ
 
 1. Hashowanie haseł
@@ -109,10 +113,14 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 
 11. Information Disclosure
-* uzytkownikowi po zalogowaniu zwracane sa zszyfrowane haslo
 
+    Ujawnienie informacji, znane również jako wyciek informacji, ma miejsce, gdy witryna internetowa nieumyślnie ujawnia użytkownikom poufne informacje. W zależności od kontekstu strony internetowe mogą ujawnić potencjalnemu atakującemu wszelkiego rodzaju informacje, w tym: dane o innych użytkownikach, takie jak nazwy użytkowników.
 
+    Zwrocono uwage, ze testowana aplikacja ujawnia dane odnosnie:
+* zszyfrowanego hasla, które jest zwracane uzytkownikowi po zalogowaniu 
+* wyswietlany jest zbedny naglowek x-powered informujący, ze Express jest w uzytku
 
+    ![id](resources/id.png)
 
 12. Command Injection
     ![cm0](resources/cm0.png)
@@ -132,8 +140,16 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 14. XPath Injection ????
 
-15. Cross Origin Resource Sharing Misonfiguration ???
+15. Cross Origin Resource Sharing
 
+    CORS to mechanizm, który zapewnia mozliwość bezpiecznej wymiany danych pomiędzy stronami, które charakteryzuje inny Origin.
+    Istnieją dwa główne rodzaje błędnych konfiguracji CORS, które mogą narazić serwer WWW na ataki CORS:
+
+ * Access-Control-Allow-Origin (ACAO): Umożliwia dwukierunkową komunikację z witrynami stron trzecich.  Błędna konfiguracja Access-Control-Allow-Origin (ACAO) może zostać wykorzystana do modyfikowania lub przekazywania poufnych danych, takich jak nazwy użytkowników i hasła.
+ *Access-Control-Allow-Credentials (ACAC): Umożliwia stronom internetowym stron trzecich wykonywanie uprzywilejowanych działań, które powinien być w stanie wykonać tylko autentycznie uwierzytelniony użytkownik.  Przykładem może być zmiana hasła lub informacji kontaktowych.
+
+    Dla badanej aplikacji zauwazono ze parametr ACAC ustawiony jest na true, przez co aplikacja jest narazona na ataki CORS. Po wysłaniu z innej strony ządania dostępu do zasobu mozna np uzyskac informacje o wygenerowanych hasłach uzytkownikow, które nie sa zabezpieczone (kazdy z zewnatrz moze je podejrzec wpisujac odpowiedni adres url).
+    ![cors](resources/cors.png)
 
 16. JWT Secret Key Brute Force
 
