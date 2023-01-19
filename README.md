@@ -246,13 +246,13 @@ Użytkownik bez uprawnień administratora uzyskał dostęp do panelu admina:
 Sprawdzenie możliwość korzystania z panelu i wyszukanie innego użytkownika:
 
 ![VAC4](resources/VAC4.png)
+
 ![VAC5](resources/VAC5.png)
 
 16. Horizontal Access Control
 
-Możliwa pozioma eskalacja uprawnień (jeden użytkownik może przeglądać/modyfikować informacje innego użytkownika.
-Możliwe jest przeglądanie haseł utworzonych przez użytkownika, jeśli znasz nazwę użytkownika
-Możliwe jest przeprowadzenie ataku nie tylko za pomoca podmiany nazwy użytkownika, ale także podmiany ID
+Pozioma eskalacja uprawnień umożliwia jednemu użytkownikownikowi przeglądać/modyfikować informacje innego użytkownika.
+Możliwe jest przeglądanie haseł utworzonych przez użytkownika, jeśli znasz nazwę użytkownika lub jego ID.
 
 Utworzenie rekordu danych dla użytkownika z uprawnieniami administratora.
 
@@ -266,7 +266,21 @@ Dostęp do passphare administratora :
 
 ![HAC3](resources/HAC3.png)
 
-17. Open Redirect
-18. Path Traversal
-19. Unsafe Deserialization
-20. Sensitive Data Exposure
+
+
+17. Path Traversal
+
+Path Traversal umożliwia atakującym przechodzenie przez system plików w celu uzyskania dostępu do plików lub katalogów znajdujących się poza katalogiem objętym ograniczeniami.
+W obszarze przechowywania można przesyłać pliki, które są przechowywane w lokalnym systemie plików, a następnie można je pobrać za pomocą funkcji pobierania.
+
+Tym żądaniem HTTP można manipulować w celu odczytania dowolnych plików z systemu. Atak polega na podmianie nazwy i ścieżki pliku, który ma zostać pobrany.
+
+![path1](resources/path1.png)
+
+![path2](resources/path2.png)
+
+![path3](resources/path3.png)
+
+
+
+# Podsumowanie
