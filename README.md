@@ -1,44 +1,16 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/snoopysecurity/dvws-node) 
+# Damn Vulnerable Web Services
 
-# dvws-node
-Damn Vulnerable Web Services is a vulnerable application with a web service and an API that can be used to learn about webservices/API related vulnerabilities.  This is a replacement for https://github.com/snoopysecurity/dvws
+## Aplikacja
+Aplikacja Damn Vulnerable Web Services to podatna na ataki usługa internetowa i interfejs API, której można użyć do poznania luk w zabezpieczeniach związanych z usługami sieciowymi/API.
+Instalacja aplikacji przebiega za pomocą dockera. Wystarczy wywołać polecenie:
+```
+`docker-compose up`
+```
+Na koniec nalezy w pliku /etc/hosts podmienić nazwę localhost dla adresu 127.0.0.1 na wybraną nazwę aplikacji.
 
-![DVWS](https://github.com/snoopysecurity/Public/blob/master/dvws/dvws.png)
+Aplikacja webowa została napisana w JavaScript.
 
-This vulnerable application contains the following API/Web Service vulnerabilities:
-
-* Insecure Direct Object Reference
-* Horizontal Access Control Issues
-* Vertical Access Control Issues
-* Mass Assignment
-* Cross-Site Scripting 
-* NoSQL Injection
-* Server Side Request Forgery
-* JSON Web Token (JWT) Secret Key Brute Force
-* Information Disclosure
-* Hidden API Functionality Exposure
-* Cross-Origin Resource Sharing Misonfiguration
-* JSON Hijacking
-* SQL Injection
-* XML External Entity Injection (XXE)
-* Command Injection
-* XPATH Injection
-* XML-RPC User Enumeration
-* Open Redirect
-* Path Traversal
-* Unsafe Deserialization 
-* Sensitive Data Exposure
-* GraphQL Access Control Issues
-* GraphQL Introspection Enabled
-* GraphQL Arbitrary File Write
-* GraphQL Batching Brute Force
-* Client Side Template Injection
-
-## Set Up Instructions
-
-### Manual (Preferred Method)
-
-**Node and NPM is needed to run dvws-node**
+## WERSJE OPROGRAMOWANIA
 
 Tested on:
 * node v10.19.0
@@ -46,145 +18,88 @@ Tested on:
 * mongodb 4.0.4
 
 
-Set up a mongoDB environment to listen on port `27017`. Docker can be used to quickly set this up. 
-
-```
-docker run -d -p 27017-27019:27017-27019 --name dvws-mongo mongo:4.0.4
-```
-
-Create a MySQL database which listens of port `3306` Docker can be used as follows
-
-```
-docker run -p 3306:3306 --name dvws-mysql -e MYSQL_ROOT_PASSWORD=mysecretpassword -d mysql:5.7
-```
-
-Git clone the DVWS Repository 
-
-```
-git clone https://github.com/snoopysecurity/dvws-node.git
-```
-
-Change directory to DVWS
-
-```
-cd dvws-node
-```
-
-npm install all dependencies  (build from source is needed for `libxmljs`, you might also need install libxml depending on your OS: `sudo apt-get install -y libxml2 libxml2-dev`)
-
-
-```
-npm install --build-from-source
-```
-
-
-
-Run the startup script which create some test data
-
-```
-node startup_script.js
-```
-
-To start the application/API, run (**sudo privileges** is needed to bind to ports)
-
-```
-sudo npm start
-```
-
-Within your /etc/hosts file, ensure localhost resolves to dvws.local. This ensures URLs from swagger is resolved correctly (optional)
-
-```
-127.0.0.1    dvws.local
-```
-
-### Docker Compose
-
-If you have docker compose installed on your system, all you need to execute is : 
-
-Clone DVWS
-
-```
-git clone https://github.com/snoopysecurity/dvws-node.git
-```
-Change directory to dvws-node 
-
-```
-cd dvws-node
-```
-Start Docker
-```
-`docker-compose up`
-```
-This will start the dvws service with the backend MySQL database and the NoSQL database.
-
-If the DVWS web service doesn't start because of delayed MongoDB or MySQL setup, then increase the value of environment variable : `WAIT_HOSTS_TIMEOUT`
-
-
-
-## Solutions
-* [DVWS Solutions Wiki](https://github.com/snoopysecurity/dvws-node/wiki)
-
-
-
-## To Do
-* Cross-Site Request Forgery (CSRF)
-* XML Bomb Denial-of-Service
-* API Endpoint Brute Forcing
-* Web Socket Security
-* Type Confusion
-* LDAP Injection
-* SOAP Injection
-* XML Injection
-* GRAPHQL Denial Of Service
-* CRLF Injection
-* GraphQL Injection
-* Webhook security
-
-## Dokumentacja
+## TESTY ZABEZPIECZEŃ
 
 1. Hashowanie haseł
-Hasła są zaszyfrowane
-![password hashing](resources/password.png)
 
-2. User Enumeration
+    Hasła są zaszyfrowane
+    ![password hashing](resources/password.png)
+
+2. XML External Entity Injection (XXE)
+
+    Jest to Wstrzyknięcie podmiotu zewnętrznego XML (znane również jako XXE) to luka w zabezpieczeniach sieci Web, która umożliwia osobie atakującej ingerowanie w przetwarzanie danych XML przez aplikację. Często umożliwia atakującemu przeglądanie plików w systemie plików serwera aplikacji i interakcję z dowolnymi systemami zaplecza lub systemami zewnętrznymi, do których sama aplikacja ma dostęp.
+    Biblioteka XML używana przez serwer SOAP do analizowania tego żądania umożliwia korzystanie z jednostek zewnętrznych. W związku z tym można to wykorzystać do odczytu dowolnych plików z usługi SOAP.
+   ![xxe](resources/xxe.png)
+
+3. Server Side Request Forgery (SSRF)
+
+    ![ssrf](resources/ssrf.png)
+
+4. User Enumeration
+
 * tworze uzytkownika
-![new user](resources/create-user.png)
+    ![new user](resources/create-user.png)
 * sprawdzam jaka jest odpowiedź serwera gdy on istnieje
-![test if user exist](resources/test-user.png)
+    ![test if user exist](resources/test-user.png)
 
 
 * sprawdzenie uzytkownika moze odbywac sie tez za pomoca xml
-![test if user exist](resources/test-user1.png)
+    ![test if user exist](resources/test-user1.png)
 
     mając taką odpowiedź, hacker moze teraz za pomocą techniki brute force sforsować hasło uytkownika
 
-3. NoSQL Injection - pozyskanie danych za pomocą zapytania do bazy
+5. NoSQL Injection - pozyskanie danych za pomocą zapytania do bazy
     Dzięki temu mozna było pozyskać wszystkie dostępne notatki, nawet te, które nie są publiczne.
-![nosql](resources/nosql.png)
+    ![nosql](resources/nosql.png)
 
-4. Insecure Direct Object Reference
-![idor](resources/idor.png)
+6. Insecure Direct Object Reference
+    ![idor](resources/idor.png)
 
-5. Mass Assignment
+7. Mass Assignment
 
-6. XML Cross-Site Scripting (XSS)
-![xss](resources/xss.png)
-![xss2](resources/xss2.png)
-![xss3](resources/xss3.png)
+8. XML Cross-Site Scripting (XSS)
+    ![xss](resources/xss.png)
+    ![xss2](resources/xss2.png)
+    ![xss3](resources/xss3.png)
 
-7. Hidden API Functionality Exposure
+9. Hidden API Functionality Exposure
     Po uruchomieniu swaggera widać rózne dostępne endpointy. Wpisując w przeglądarkę po kolei kazdy endpoint, sprawdzane jest, czy sa on zabezpieczone.
 
-![api](resources/api.png)
+    ![api](resources/api.png)
 
 
-8. SQL Injection
+10. SQL Injection
 
-9. Information Disclosure
+11. Information Disclosure
 * uzytkownikowi po zalogowaniu zwracane sa zszyfrowane haslo
 
 
 
 
-10. Command Injection
+12. Command Injection
+    ![cm0](resources/cm0.png)
+    ![cm1](resources/cm1.png)
+
+
+13. JSON Hijacking
+
+    Kradzież tych informacji jest możliwa z następujących powodów:
+
+    Dane są zwracane z typem zawartości Content-Type: application/json (nie określono zestawu znaków)
+    Dane są zwracane wewnątrz tablicy [].
+    Do wykonania powyższego żądania nie jest wymagane żadne uwierzytelnienie (problem z kontrolą dostępu)
+    Uwaga: w większości nowoczesnych przeglądarek usunięto problem przechwytywania JSON
+
+    ![hijack](resources/hijack.png)
+
+14. XPath Injection ????
+
+15. Cross Origin Resource Sharing Misonfiguration ???
+
+
+16. JWT Secret Key Brute Force
+
+    Uzytkownikowi po zalogowaniu zwracany jest token jwt. Token ten mozna sprobowac rozszywrowac uzywajac roznych narzedzi jak np. jwt-cracker.
+    ![jwt](resources/jwt.png)
+    ![jwt-crack](resources/jwt-crack.png)
 
