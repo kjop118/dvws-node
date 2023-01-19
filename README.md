@@ -146,7 +146,7 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
     Istnieją dwa główne rodzaje błędnych konfiguracji CORS, które mogą narazić serwer WWW na ataki CORS:
 
  * Access-Control-Allow-Origin (ACAO): Umożliwia dwukierunkową komunikację z witrynami stron trzecich.  Błędna konfiguracja Access-Control-Allow-Origin (ACAO) może zostać wykorzystana do modyfikowania lub przekazywania poufnych danych, takich jak nazwy użytkowników i hasła.
- *Access-Control-Allow-Credentials (ACAC): Umożliwia stronom internetowym stron trzecich wykonywanie uprzywilejowanych działań, które powinien być w stanie wykonać tylko autentycznie uwierzytelniony użytkownik.  Przykładem może być zmiana hasła lub informacji kontaktowych.
+ * Access-Control-Allow-Credentials (ACAC): Umożliwia stronom internetowym stron trzecich wykonywanie uprzywilejowanych działań, które powinien być w stanie wykonać tylko autentycznie uwierzytelniony użytkownik.  Przykładem może być zmiana hasła lub informacji kontaktowych.
 
     Dla badanej aplikacji zauwazono ze parametr ACAC ustawiony jest na true, przez co aplikacja jest narazona na ataki CORS. Po wysłaniu z innej strony ządania dostępu do zasobu mozna np uzyskac informacje o wygenerowanych hasłach uzytkownikow, które nie sa zabezpieczone (kazdy z zewnatrz moze je podejrzec wpisujac odpowiedni adres url).
     ![cors](resources/cors.png)
