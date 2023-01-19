@@ -172,13 +172,13 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 ### 11. Information Disclosure
 
-    Ujawnienie informacji, znane również jako wyciek informacji, ma miejsce, gdy witryna internetowa nieumyślnie ujawnia użytkownikom poufne informacje. W zależności od kontekstu strony internetowe mogą ujawnić potencjalnemu atakującemu wszelkiego rodzaju informacje, w tym: dane o innych użytkownikach, takie jak nazwy użytkowników.
+Ujawnienie informacji, znane również jako wyciek informacji, ma miejsce, gdy witryna internetowa nieumyślnie ujawnia użytkownikom poufne informacje. W zależności od kontekstu strony internetowe mogą ujawnić potencjalnemu atakującemu wszelkiego rodzaju informacje, w tym: dane o innych użytkownikach, takie jak nazwy użytkowników.
 
-    Zwrocono uwage, ze testowana aplikacja ujawnia dane odnosnie:
+Zwrocono uwage, ze testowana aplikacja ujawnia dane odnosnie:
 * zszyfrowanego hasla, które jest zwracane uzytkownikowi po zalogowaniu 
 * wyswietlany jest zbedny naglowek x-powered informujący, ze Express jest w uzytku
 
-    ![id](resources/id.png)
+![id](resources/id.png)
 
 ### 12. Command Injection
 
@@ -208,6 +208,7 @@ Istnieją dwa główne rodzaje błędnych konfiguracji CORS, które mogą narazi
  *Access-Control-Allow-Credentials (ACAC): Umożliwia stronom internetowym stron trzecich wykonywanie uprzywilejowanych działań, które powinien być w stanie wykonać tylko autentycznie uwierzytelniony użytkownik.  Przykładem może być zmiana hasła lub informacji kontaktowych.
 
  Dla badanej aplikacji zauwazono ze parametr ACAC ustawiony jest na true, przez co aplikacja jest narazona na ataki CORS. Po wysłaniu z innej strony ządania dostępu do zasobu mozna np uzyskac informacje o wygenerowanych hasłach uzytkownikow, które nie sa zabezpieczone (kazdy z zewnatrz moze je podejrzec wpisujac odpowiedni adres url).
+ 
 ![cors](resources/cors.png)
 
 ### 15. JWT Secret Key Brute Force
