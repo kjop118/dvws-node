@@ -22,6 +22,16 @@ Tested on:
 * docker- compose 2.9.0
 
 
+
+# Podsumowanie aka audyt
+Audyt aplikacji Damn Vulnerable Web Service został zrealizowany zgodnie z OWASP TOP 10 pod kątem ogólnego bezpieczeństwa aplikacji.
+
+Wyróżniono kilka głównych problemów wpływających na niezgodność aplikacji z wymaganiami standardu:
+1. Brak formalnej dokumentacji świadczącej o analizie bezpieczeństwa aplikacji, w tym:
+    * brak architektury bezpieczeństwa wraz z wyróżnieniem obszarów zaufania i przepływów danych,
+2. Niewystarczająco zabezpieczony mechanizm wysyłania plików przez użytkowników.
+
+
 ## TESTY ZABEZPIECZEŃ
 
 ### 1. Hashowanie haseł
@@ -253,12 +263,3 @@ Tym żądaniem HTTP można manipulować w celu odczytania dowolnych plików z sy
 ![path3](resources/path3.png)
 
 
-
-
-# Podsumowanie
-Audyt aplikacji Damn Vulnerable Web Service został zrealizowany zgodnie z OWASP TOP 10 pod kątem ogólnego bezpieczeństwa aplikacji.
-
-Wyróżniono kilka głównych problemów wpływających na niezgodność aplikacji z wymaganiami standardu:
-1. Brak formalnej dokumentacji świadczącej o analizie bezpieczeństwa aplikacji, w tym:
-    * brak architektury bezpieczeństwa wraz z wyróżnieniem obszarów zaufania i przepływów danych,
-2. Niewystarczająco zabezpieczony mechanizm wysyłania plików przez użytkowników.
