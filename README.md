@@ -196,7 +196,6 @@ Kradzież tych informacji jest możliwa z następujących powodów:
 Dane są zwracane z typem zawartości Content-Type: application/json (nie określono zestawu znaków)
 Dane są zwracane wewnątrz tablicy [].
 Do wykonania powyższego żądania nie jest wymagane żadne uwierzytelnienie (problem z kontrolą dostępu)
-Uwaga: w większości nowoczesnych przeglądarek usunięto problem przechwytywania JSON
 
 ![hijack](resources/hijack.png)
 
@@ -271,5 +270,3 @@ Tym żądaniem HTTP można manipulować w celu odczytania dowolnych plików z sy
 ![path2](resources/path2.png)
 
 ![path3](resources/path3.png)
-
-
