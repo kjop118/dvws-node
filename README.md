@@ -22,7 +22,7 @@ Tested on:
 * docker- compose 2.9.0
 
 # Podsumowanie aka audyt
-Audyt aplikacji Damn Vulnerable Web Service został zrealizowany zgodnie z OWASP TOP 10 oraz pod kątem ogólnego bezpieczeństwa aplikacji.
+Audyt aplikacji Damn Vulnerable Web Service został zrealizowany zgodnie z OWASP TOP 10 oraz pod kątem ogólnego bezpieczeństwa aplikacji. Do testowania aplikacji wykorzystano program burp suite.
 
 Wyróżniono kilka głównych problemów wpływających na niezgodność aplikacji z wymaganiami standardu:
 1. Brak formalnej dokumentacji świadczącej o analizie bezpieczeństwa aplikacji, w tym:
