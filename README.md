@@ -153,7 +153,9 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 16. JWT Secret Key Brute Force
 
-    Uzytkownikowi po zalogowaniu zwracany jest token jwt. Token ten mozna sprobowac rozszywrowac uzywajac roznych narzedzi jak np. jwt-cracker.
+    Uzytkownikowi po zalogowaniu zwracany jest token jwt. Otrzymany token mozna wrzucic na stronę jwt.io, która m.in. ujawnia algorytm szyfrujący. Token ten mozna sprobowac rozszywrowac uzywajac roznych narzedzi jak np. jwt-cracker.
+
+    ![jwtio](resources/jwtio.png)
     ![jwt](resources/jwt.png)
     ![jwt-crack](resources/jwt-crack.png)
 
