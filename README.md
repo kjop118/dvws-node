@@ -24,22 +24,32 @@ Tested on:
 
 ## TESTY ZABEZPIECZEŃ
 
-1. Hashowanie haseł
+### 1. Hashowanie haseł
 
     Hasła są zaszyfrowane
     ![password hashing](resources/password.png)
 
-2. XML External Entity Injection (XXE)
+### 2. XML External Entity Injection (XXE)
 
     Jest to Wstrzyknięcie podmiotu zewnętrznego XML (znane również jako XXE) to luka w zabezpieczeniach sieci Web, która umożliwia osobie atakującej ingerowanie w przetwarzanie danych XML przez aplikację. Często umożliwia atakującemu przeglądanie plików w systemie plików serwera aplikacji i interakcję z dowolnymi systemami zaplecza lub systemami zewnętrznymi, do których sama aplikacja ma dostęp.
     Biblioteka XML używana przez serwer SOAP do analizowania tego żądania umożliwia korzystanie z jednostek zewnętrznych. W związku z tym można to wykorzystać do odczytu dowolnych plików z usługi SOAP.
    ![xxe](resources/xxe.png)
 
-3. Server Side Request Forgery (SSRF)
+### 3. Server Side Request Forgery (SSRF)
+
+    Atak Server-Side Request Forgery (SSRF) polega na tym, że osoba atakująca nadużywa funkcjonalności serwera w celu uzyskania dostępu do zasobów lub ich modyfikacji. Celem atakującego jest aplikacja obsługująca import danych z adresów URL lub umożliwiająca odczytywanie danych z adresów URL. Adresami URL można manipulować, zastępując je nowymi lub modyfikując przechodzenie przez ścieżkę URL.
+
+    Zazwyczaj osoby atakujące dostarczają adres URL (lub modyfikują istniejący), a kod działający na serwerze odczytuje lub przesyła do niego dane. Atakujący mogą wykorzystać adresy URL, aby uzyskać dostęp do wewnętrznych danych i usług, które nie miały być ujawnione — w tym baz danych obsługujących protokół HTTP i danych konfiguracyjnych serwera.
+
+    Gdy atakujący zmanipuluje żądanie, serwer je otrzyma i spróbuje odczytać dane pod zmienionym adresem URL. Nawet w przypadku usług, które nie są bezpośrednio widoczne w publicznym Internecie, osoby atakujące mogą wybrać docelowy adres URL, który umożliwi im odczytanie danych.
+
 
     ![ssrf](resources/ssrf.png)
 
-4. User Enumeration
+### 4. User Enumeration
+    Atak user enumeration to typowa luka w zabezpieczeniach aplikacji, która pojawia się, gdy osoba atakująca może określić, czy nazwy użytkowników są prawidłowe, czy nie. Najczęściej ten problem występuje w formularzach logowania, gdzie zwracany jest błąd podobny do „nieprawidłowa nazwa użytkownika”.
+
+    Osoba atakująca może wykorzystać to zachowanie, używając długich list typowych nazw użytkowników, znanych nazw i słów ze słownika, aby obserwować reakcję aplikacji na wszystkie. Na podstawie tych wyników osoba atakująca może następnie wywnioskować, które nazwy użytkowników są prawidłowe.
 
 * tworze uzytkownika
     ![new user](resources/create-user.png)
@@ -52,7 +62,7 @@ Tested on:
 
     mając taką odpowiedź, hacker moze teraz za pomocą techniki brute force sforsować hasło uytkownika
 
-5. NoSQL Injection - pozyskanie danych za pomocą zapytania do bazy
+### 5. NoSQL Injection - pozyskanie danych za pomocą zapytania do bazy
     Wstrzyknięcie NoSQL to luka w zabezpieczeniach aplikacji internetowej korzystającej z bazy danych NoSQL. NoSQL (nie tylko SQL) odnosi się do systemów baz danych, które używają bardziej elastycznych formatów danych i nie obsługują języka SQL (Structured Query Language). Zazwyczaj przechowują dane i zarządzają nimi jako pary klucz-wartość, dokumenty lub wykresy danych.
 
     Wstrzyknięcie NoSQL, podobnie jak wstrzyknięcie SQL, może pozwolić atakującym na ominięcie uwierzytelniania, eksfiltrację poufnych danych, manipulowanie danymi w bazie danych, a nawet naruszenie bezpieczeństwa bazy danych i serwera bazowego. Większość luk w zabezpieczeniach związanych z iniekcją NoSQL występuje, ponieważ programiści akceptują i przetwarzają dane wejściowe użytkownika bez ich odpowiedniego oczyszczenia.
@@ -62,30 +72,31 @@ Tested on:
     * Silnik bazy danych — na przykład MongoDB, Cassandra, Redis lub Google Bigtable
     * Język programowania — na przykład Python, PHP
     * Ramy programistyczne — na przykład Angular, Node.js
-    
+
     Wspólnym mianownikiem większości baz danych NoSQL jest to, że obsługują one tekstowy format JavaScript Object Notation (JSON) i zazwyczaj umożliwiają wprowadzanie danych przez użytkownika za pośrednictwem plików JSON. Jeśli te dane wejściowe nie zostaną oczyszczone, mogą być podatne na ataki iniekcyjne.
 
     Dzięki temu mozna było pozyskać wszystkie dostępne notatki, nawet te, które nie są publiczne.
 
     ![nosql](resources/nosql.png)
 
-6. Insecure Direct Object Reference
+### 6. Insecure Direct Object Reference
     Niezabezpieczone bezpośrednie odniesienia do obiektów (IDOR) to rodzaj luki w zabezpieczeniach kontroli dostępu, która powstaje, gdy aplikacja używa danych wejściowych dostarczonych przez użytkownika w celu bezpośredniego dostępu do obiektów. Termin IDOR został spopularyzowany dzięki pojawieniu się w pierwszej dziesiątce rankingu OWASP 2007. Jest to jednak tylko jeden przykład wielu błędów implementacji kontroli dostępu, które mogą prowadzić do obchodzenia kontroli dostępu. Luki IDOR są najczęściej związane z poziomą eskalacją uprawnień, ale mogą również powstać w związku z pionową eskalacją uprawnień.
 
 
     ![idor](resources/idor.png)
 
-7. Mass Assignment
+### 7. Mass Assignment
 
     Atak polega na przypisywaniu wartości zmiennej po stronie serwera.
     Przykłądem jest tworzenie użytkownika bez uprawnień adminstratora. 
     W tym przypadku defaultowy obiekt użytkownika zostaje utworzony ze zmienną admin=false.
     Atak będzie polegał na narzuceniu zmiennej admin=true i jednoczesnym przejęciu uprawnień administratora.
+    
 ![mass-assignment](resources/mass-assignment.png)
 ![mass-assignment2](resources/mass-assignment2.png)
 ![mass-assignment3](resources/mass-assignment3.png)
 
-8. XML Cross-Site Scripting (XSS)
+### 8. XML Cross-Site Scripting (XSS)
 
     Cross-site scripting (znany również jako XSS) to luka w zabezpieczeniach internetowych, która umożliwia atakującemu naruszenie interakcji użytkowników z podatną aplikacją. Umożliwia atakującemu obejście tej samej zasady pochodzenia, która ma na celu oddzielenie różnych witryn internetowych od siebie. Luki w zabezpieczeniach związane z atakami typu cross-site scripting zwykle umożliwiają atakującemu podszywanie się pod użytkownika będącego ofiarą, wykonywanie wszelkich czynności, które użytkownik jest w stanie wykonać, oraz uzyskiwanie dostępu do dowolnych danych użytkownika. Jeśli użytkownik będący ofiarą ma uprzywilejowany dostęp do aplikacji, osoba atakująca może uzyskać pełną kontrolę nad wszystkimi funkcjami i danymi aplikacji.
 
@@ -102,7 +113,7 @@ Tested on:
     ![xss2](resources/xss2.png)
     ![xss3](resources/xss3.png)
 
-9. Hidden API Functionality Exposure
+### 9. Hidden API Functionality Exposure
     Nadmierna ekspozycja danych jest trzecim najbardziej krytycznym zagrożeniem bezpieczeństwa API w zestawieniu OWASP API Security Top 10. Występuje, gdy interfejs API odpowiada dodatkowymi danymi, które klient powinien przefiltrować lub zignorować. Jest to szczególnie niekorzystne, gdy dodatkowe dane zawierają elementy wrażliwe lub objęte wymogiem regulacyjnym.
 
     Podczas tworzenia oprogramowania API można przyjąć dwa niefortunne założenia. Po pierwsze, programista może założyć, że tylko klienci firmy będą rozmawiać z interfejsem API i sądzić, że klient zignoruje dodatkowe dane. Niestety, atakujący nie ograniczy się tylko do oficjalnego klienta i zdecydują się wykorzystać dodatkowe dane. Po drugie, programiści mogą używać funkcji programistycznych do automatycznego przekształcania wewnętrznych danych API w odpowiedzi API. 
@@ -118,7 +129,7 @@ Tested on:
     ![api](resources/api.png)
 
 
-10. SQL Injection
+### 10. SQL Injection
     Ataki SQL Injection są niestety bardzo powszechne, a wynika to z dwóch czynników:
     znaczne rozpowszechnienie luk SQL Injection oraz atrakcyjność celu (tj. baza danych zazwyczaj zawiera wszystkie interesujące/krytyczne dane dla Twojej aplikacji). Wstrzyknięcia SQL są wprowadzane, gdy twórcy oprogramowania tworzą dynamiczne zapytania do bazy danych zbudowane z konkatenacji łańcuchów, które obejmują dane wejściowe wprowadzone przez użytkownika. Może to zostać wykorzystane do przeglądania, modyfikowania lub usuwania danych aplikacji, co wcześniej nie było możliwe, lub do powodowania trwałych zmian w zawartości lub zachowaniu aplikacji.
 
@@ -149,13 +160,13 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 
 
-11. Information Disclosure
+### 11. Information Disclosure
 * uzytkownikowi po zalogowaniu zwracane sa zszyfrowane haslo
 
 
 
 
-12. Command Injection
+### 12. Command Injection
 
     Wstrzykiwanie poleceń to atak, w którym celem jest wykonanie dowolnych poleceń w systemie operacyjnym hosta za pośrednictwem podatnej na ataki aplikacji. Ataki polegające na wstrzykiwaniu poleceń są możliwe, gdy aplikacja przekazuje niezabezpieczone dane dostarczone przez użytkownika (formularze, pliki cookie, nagłówki HTTP itp.) do powłoki systemowej. W tym ataku polecenia systemu operacyjnego dostarczone przez osobę atakującą są zwykle wykonywane z uprawnieniami aplikacji, której dotyczy luka. Ataki polegające na wstrzykiwaniu poleceń są możliwe głównie z powodu niewystarczającej weryfikacji danych wejściowych.
 
@@ -165,7 +176,7 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
     ![cm1](resources/cm1.png)
 
 
-13. JSON Hijacking
+### 13. JSON Hijacking
 
     Kradzież tych informacji jest możliwa z następujących powodów:
 
@@ -178,14 +189,14 @@ Kolejny atak polegał na podmienieniu nazwy użytkownika na frazę '1'='1
 
 
 
-14. JWT Secret Key Brute Force
+### 14. JWT Secret Key Brute Force
 
     Uzytkownikowi po zalogowaniu zwracany jest token jwt. Token ten mozna sprobowac rozszywrowac uzywajac roznych narzedzi jak np. jwt-cracker.
     ![jwt](resources/jwt.png)
     ![jwt-crack](resources/jwt-crack.png)
 
 
-15. Vertical Access Control
+### 15. Vertical Access Control
 
     Pionowa eskalacja uprawnień jest możliwa, jeśli klucz kontrolowany przez użytkownika jest w rzeczywistości  flagą wskazującą status administratora, umożliwiając atakującemu uzyskanie dostępu administracyjnego.
 
@@ -207,7 +218,7 @@ Sprawdzenie możliwość korzystania z panelu i wyszukanie innego użytkownika:
 
 ![VAC5](resources/VAC5.png)
 
-16. Horizontal Access Control
+### 16. Horizontal Access Control
 
 Pozioma eskalacja uprawnień umożliwia jednemu użytkownikownikowi przeglądać/modyfikować informacje innego użytkownika.
 Możliwe jest przeglądanie haseł utworzonych przez użytkownika, jeśli znasz nazwę użytkownika lub jego ID.
@@ -226,7 +237,7 @@ Dostęp do passphare administratora :
 
 
 
-17. Path Traversal
+### 17. Path Traversal
 
     Path Traversal umożliwia atakującym przechodzenie przez system plików w celu uzyskania dostępu do plików lub katalogów znajdujących się poza katalogiem objętym ograniczeniami.
     W obszarze przechowywania można przesyłać pliki, które są przechowywane w lokalnym systemie plików, a następnie można je pobrać za pomocą funkcji pobierania.
@@ -243,3 +254,9 @@ Dostęp do passphare administratora :
 
 
 # Podsumowanie
+Audyt aplikacji Damn Vulnerable Web Service został zrealizowany zgodnie z OWASP TOP 10 pod kątem ogólnego bezpieczeństwa aplikacji.
+
+Wyróżniono kilka głównych problemów wpływających na niezgodność aplikacji z wymaganiami standardu:
+1. Brak formalnej dokumentacji świadczącej o analizie bezpieczeństwa aplikacji, w tym:
+    * brak architektury bezpieczeństwa wraz z wyróżnieniem obszarów zaufania i przepływów danych,
+2. Niewystarczająco zabezpieczony mechanizm wysyłania plików przez użytkowników.
