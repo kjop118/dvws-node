@@ -28,14 +28,14 @@ Tested on:
 
 Hasła są zaszyfrowane
 
-    ![password hashing](resources/password.png)
+![password hashing](resources/password.png)
 
 ### 2. XML External Entity Injection (XXE)
 
 Jest to Wstrzyknięcie podmiotu zewnętrznego XML (znane również jako XXE) to luka w zabezpieczeniach sieci Web, która umożliwia osobie atakującej ingerowanie w przetwarzanie danych XML przez aplikację. Często umożliwia atakującemu przeglądanie plików w systemie plików serwera aplikacji i interakcję z dowolnymi systemami zaplecza lub systemami zewnętrznymi, do których sama aplikacja ma dostęp.
 Biblioteka XML używana przez serwer SOAP do analizowania tego żądania umożliwia korzystanie z jednostek zewnętrznych. W związku z tym można to wykorzystać do odczytu dowolnych plików z usługi SOAP.
 
-   ![xxe](resources/xxe.png)
+![xxe](resources/xxe.png)
 
 ### 3. Server Side Request Forgery (SSRF)
 
